@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Link } from 'gatsby';
 import { FunctionComponent, ReactNode } from 'react';
 
-type CategoryListProps = {
+export type CategoryListProps = {
   selectedCategory: string;
   categoryList: {
     [key: string]: number;
@@ -27,16 +27,13 @@ const CategoryList: FunctionComponent<CategoryListProps> = function ({
     <Wrapper>
       {Object.entries(categoryList).map(([name, count]) => (
         <CategoryItem
-          to={`/${name}`}
+          to={`/?category=${name}`}
           active={selectedCategory === name}
           key={name}
         >
           #{name}({count})
         </CategoryItem>
       ))}
-      {/* {categoryList.map(
-        category => `#${Object.keys(category)}${Object.values(category)}`,
-      )} */}
     </Wrapper>
   );
 };
