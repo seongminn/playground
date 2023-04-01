@@ -3,12 +3,12 @@ import useInfiniteScroll, {
   useInfiniteScrollType,
 } from '@hooks/useInfiniteScroll';
 import { FunctionComponent } from 'react';
-import { PostListItemType } from 'types/PostItem.types';
+import { PostPageItemProps } from '@/types/PostItem.types';
 import PostItem from './PostItem';
 
 type PostListProps = {
   selectedCategory: string;
-  posts: PostListItemType[];
+  posts: PostPageItemProps[];
 };
 
 const PostList: FunctionComponent<PostListProps> = function ({
@@ -19,9 +19,17 @@ const PostList: FunctionComponent<PostListProps> = function ({
     useInfiniteScroll(selectedCategory, posts);
   return (
     <PostListWrapper ref={containerRef}>
-      {filteredList.map(({ node: { id, frontmatter } }) => (
-        <PostItem key={id} link="https://www.google.co.kr" {...frontmatter} />
-      ))}
+      {filteredList.map(
+        ({
+          node: {
+            id,
+            fields: { slug },
+            frontmatter,
+          },
+        }) => (
+          <PostItem key={id} link={slug} {...frontmatter} />
+        ),
+      )}
     </PostListWrapper>
   );
 };

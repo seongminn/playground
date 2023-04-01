@@ -12,9 +12,11 @@ export type PostFrontmatterType = {
   };
 };
 
-export type PostListItemType = {
+export type PostPageItemProps = {
   node: {
+    html: string;
     id: string;
+    fields: { slug: string };
     frontmatter: PostFrontmatterType;
   };
 };

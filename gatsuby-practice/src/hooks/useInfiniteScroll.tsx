@@ -1,29 +1,29 @@
 import { useState, useEffect, useMemo, useRef, MutableRefObject } from 'react';
-import { PostListItemType } from '../types/PostItem.types';
+import { PostPageItemProps } from '@/types/PostItem.types';
 
 export type useInfiniteScrollType = {
   containerRef: MutableRefObject<HTMLDivElement | null>;
-  filteredList: PostListItemType[];
+  filteredList: PostPageItemProps[];
 };
 
 const NUMBER_OF_ITEMS_PER_PAGE = 10;
 
 const useInfiniteScroll = function (
   selectedCategory: string,
-  posts: PostListItemType[],
+  posts: PostPageItemProps[],
 ): useInfiniteScrollType {
   const containerRef: MutableRefObject<HTMLDivElement | null> =
     useRef<HTMLDivElement | null>(null);
   const [count, setCount] = useState<number>(1);
 
-  const filteredList = useMemo<PostListItemType[]>(
+  const filteredList = useMemo<PostPageItemProps[]>(
     () =>
       posts.filter(
         ({
           node: {
             frontmatter: { categories },
           },
-        }: PostListItemType) =>
+        }: PostPageItemProps) =>
           selectedCategory !== 'All'
             ? categories.includes(selectedCategory)
             : true,
