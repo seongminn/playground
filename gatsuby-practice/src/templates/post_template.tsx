@@ -4,8 +4,10 @@ import Template from '@components/common/Template';
 import PostHead from '@/components/post/PostHead';
 import { PostPageItemProps } from '@/types/PostItem.types';
 import PostContent from '@/components/post/PostContent';
+import CommentWidget from '@/components/post/CommentWidget';
 
 type PostTemplateProps = {
+  location: { href: string };
   data: {
     allMarkdownRemark: {
       edges: PostPageItemProps[];
@@ -14,6 +16,7 @@ type PostTemplateProps = {
 };
 
 const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
+  location: { href },
   data: {
     allMarkdownRemark: { edges },
   },
@@ -28,12 +31,13 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
         categories,
         thumbnail: {
           childImageSharp: { gatsbyImageData },
+          publicURL,
         },
       },
     },
   } = edges[0];
   return (
-    <Template>
+    <Template title={title} description={summary} url={href} image={publicURL}>
       <PostHead
         title={title}
         date={date}
@@ -41,6 +45,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
         thumbnail={gatsbyImageData}
       />
       <PostContent html={html} />
+      <CommentWidget />
     </Template>
   );
 };
