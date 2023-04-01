@@ -24,6 +24,24 @@ module.exports = {
     },
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,
+    // sitemap 생성
+    `gatsby-plugin-sitemap`,
+    // 표준 url 생성
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: 'https://my-website.com/',
+        stripQueryString: true,
+      },
+    },
+    // 크롤링을 허용하거나 허용하지 않는 페이지 지정
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
+    // image 관련
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -50,6 +68,7 @@ module.exports = {
         path: `${__dirname}/static`,
       },
     },
+    // 마크다운 관련
     {
       resolve: `gatsby-transformer-remark`,
       options: {
